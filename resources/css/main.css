@@ -1,0 +1,17 @@
+@tailwind base;
+
+@tailwind components;
+
+.darkbgcolor{
+	background-color: #252f3f;
+}
+
+.darkerbgcolor{
+	background-color: #161e2e;
+}
+.darkerbgcolor:hover{
+	background-color: #161e2e;
+}
+
+
+@tailwind utilities;

@@ -1,0 +1,87 @@
+.buttons-row {
+ text-align:center
+}
+.button {
+ display:inline-block;
+ margin:.5em .25em;
+ padding:.5em 1em;
+ text-align:center;
+ cursor:pointer;
+ color:#ddd;
+ text-shadow:-1px -1px 0 #000;
+ border-radius:3px;
+ background-color:#204650;
+ background-image:linear-gradient(to bottom,#275660 0,#183640 100%);
+ background-size:100% 150%;
+ background-position:0 100%;
+ transition-property:color,background,text-shadow,box-shadow,border-color;
+ transition-duration:.25s
+}
+.button:active,
+.button:focus,
+.button:hover {
+ background-position:0 0
+}
+.button.clear-button,
+.button.dead-button,
+.button.mutable-button,
+.button.rm-button,
+.button:disabled {
+ transition-property:none
+}
+.button.clear-button span:last-child,
+.button.dead-button span:last-child,
+.button.mutable-button span:last-child,
+.button.rm-button span:last-child,
+.button:disabled span:last-child {
+ display:none
+}
+.button.dead-button.live span:first-child,
+.button.dead-button.live span:last-child,
+.button.mutable-button:hover span:last-child {
+ display:inline
+}
+.button.dead-button:not(.live),
+.button:disabled {
+ cursor:default;
+ pointer-events:none;
+ color:#aaa;
+ text-shadow:-1px -1px 0 #444;
+ background-color:#777;
+ background-image:linear-gradient(to bottom,#999 0,#555 100%);
+ box-shadow:inset -.1em 0 1em .1em rgba(255,255,255,.1),0 3px 0 0 #222,1px 1px 5px rgba(0,0,0,.5),1px 5px 5px -5px rgba(0,0,0,.5)
+}
+.button.featured,
+.button.green,
+.button.in-favorites,
+.button.register,
+.button.restore-button:hover {
+ color:#053919;
+ text-shadow:none;
+ background-color:#a1c25a;
+ background-image:linear-gradient(to bottom,#bddb7e 0,#85a936 100%)
+}
+.button.big-green {
+ font-size:1.3em;
+ font-family:Montserrat,'Source Sans Pro',Arial,sans;
+ text-shadow:none;
+ background-image:radial-gradient(100% 100% at 0 bottom,#31751d 0,#a1c25a 100%);
+ color:#000
+}
+.button.red,
+.button.restore-button,
+.button.rm-button:hover {
+ color:#fdd;
+ text-shadow:inherit;
+ background-color:#702e20;
+ background-image:linear-gradient(to bottom,#703627 0,#702618 100%);
+ box-shadow:inset -.1em 0 1em .1em rgba(255,255,255,.1),0 3px 0 0 #49110f,1px 1px 5px rgba(0,0,0,.5),1px 5px 5px -5px rgba(0,0,0,.5)
+}
+.button.orange,
+.button.reported {
+ color:#ffd;
+ text-shadow:inherit;
+ background-color:#863c11;
+ background-image:linear-gradient(to bottom,#A85521 0,#632300 100%);
+ box-shadow:inset -.1em 0 1em .1em rgba(255,255,255,.1),0 3px 0 0 #49230F,1px 1px 5px rgba(0,0,0,.5),1px 5px 5px -5px rgba(0,0,0,.5)
+}

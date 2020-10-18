@@ -1,0 +1,134 @@
+section, ul, li {
+	margin:0;
+	padding:0;
+	border-width:0;
+	border-color:currentColor;
+	outline:0 none;
+	border-style:solid;
+	border-color:inherit;
+	font-size:1em;
+	line-height:1.3em;
+	vertical-align:baseline;
+	font-family:inherit;
+	text-decoration:none;
+	font-style:normal;
+	text-overflow:ellipsis;
+	color:inherit;
+	box-sizing:border-box;
+	-webkit-backface-visibility:hidden
+}
+section {
+	display:block
+}
+img {
+	display:inline-block;
+	box-sizing:content-box
+}
+ol li,
+ul li {
+	list-style-type:none
+}
+.thumbnail-listing{
+	text-align:center;
+	width:100%;
+}
+.thumbnail-listing li{
+	display:inline-block
+}
+.thumbnail-listing .thumbnail{
+	display:inline-block;
+	vertical-align:middle;
+	margin:10px;
+}
+.thumbnail {
+	position:relative;
+	display:inline-block;
+	/*margin:5px 5px 0;*/
+	vertical-align:bottom;
+	text-align:center;
+	white-space:normal;
+	background-color:#222;
+	box-shadow:0 0 4px rgba(0,0,0,.8)
+}
+.thumbnail,
+.thumbnail::before,
+.thumbnail>img {
+	border-radius:3px
+}
+.thumbnail a,
+.thumbnail img {
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	user-select:none;
+	user-drag:none;
+	-webkit-user-drag:none
+}
+.thumbnail img {
+	z-index:90;
+	position:absolute;
+	display:block;
+	object-fit: cover;
+}
+.thumbnail .thumbnail-info>a,
+.thumbnail .thumbnail-tags a,
+.thumbnail a {
+	color:inherit
+}
+.thumbnail.dz-preview>img {
+	position:relative
+}
+.thumbnail>.preview {
+	z-index:110;
+	position:absolute;
+	display:block;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0
+}
+.thumbnail>.thumbnail-info{
+	position:absolute;
+	z-index:120;
+	left:0;
+	right:0;
+	padding:0 .5em;
+	line-height:2em;
+	overflow:hidden;
+	max-height:0;
+	visibility:hidden;
+	opacity:0;
+	transition:.25s 50ms visibility,.25s 50ms opacity,.5s 50ms max-height;
+	color:#fff;
+	text-shadow:1px 1px 1px rgba(0,0,0,.75)
+}
+.thumbnail>.thumbnail-info>a,
+.thumbnail>.thumbnail-info>span{
+	line-height:inherit
+}
+.thumbnail>.thumbnail-info {
+	bottom:0;
+	background-color:rgba(0,0,0,.165);
+	background-image:linear-gradient(to bottom,rgba(0,0,0,.03) 0,rgba(0,0,0,.3) 100%)
+}
+.thumbnail>.thumbnail-info>.wall-res {
+	font-style:italic
+}
+.thumbnail>.thumbnail-info>.wall-like,
+.thumbnail>.thumbnail-info>.wall-favs {
+	position:absolute;
+	margin: 0 1rem;
+}
+.thumbnail>.thumbnail-info>.wall-like {
+	left:0;
+}
+.thumbnail>.thumbnail-info>.wall-favs {
+	right:0;
+}
+.thumbnail:active>.thumbnail-info,
+.thumbnail:focus>.thumbnail-info,
+.thumbnail:hover>.thumbnail-info{
+	max-height:4em;
+	visibility:visible;
+	opacity:1
+}
