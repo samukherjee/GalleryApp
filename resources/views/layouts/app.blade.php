@@ -18,6 +18,9 @@
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
     @yield('head')
+
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    @yield('js')
 </head>
 <body class="bg-gray-900">
     <x-navbar></x-navbar>
@@ -25,8 +28,5 @@
     @yield('content')
 
     <x-footbar></x-footbar>
-
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    @yield('js')
 </body>
 </html>

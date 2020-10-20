@@ -33,8 +33,8 @@ Route::patch('/setting/avatar-and-cover', 'SettingController@updateAvatar');
 
 Route::get('/tags', 'TagController@index');
 Route::get('/untag', 'TagController@create');
-Route::get('/tag/{tag}', 'TagController@show');
 Route::post('/tag/{wallpaperId}', 'TagController@store');
+Route::get('/tag/{tag}', 'TagController@show');
 // Route::get('/tag/{tag}', 'TagController@show');
 
 

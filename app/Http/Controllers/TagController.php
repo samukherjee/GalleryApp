@@ -52,8 +52,6 @@ class TagController extends Controller
 
         $wallpaper = wallpaper::findOrFail($wallpaperId);
         $wallpaper->tags()->attach($ids);
-
-        return back();
     }
 
     public function show($slug)

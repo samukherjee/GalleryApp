@@ -60,27 +60,57 @@
 							Tags
 						</div>
 
-						@include('layouts.error', ['data' => 'tags'])
+						@auth
+							@include('layouts.error', ['data' => 'tags'])
 
-						<div class="flex justify-center">
-							<form class="w-full" method="POST" action="/tag/{{$wallpaper->id}}">
-								@csrf
-								<div class="flex items-center border-b-2 border-gray-500 py-2 @error('tags') border-red-500 @enderror">
-									<x-inputs.taginput id="my_search" name="tags"></x-inputs.taginput>
-								</div>
-							</form>
-						</div>
+							<div class="flex justify-center">
+								<form class="w-full" id="tag-add-form">
+									<div class="flex items-center border-b-2 border-gray-500 py-2 @error('tags') border-red-500 @enderror">
+										<x-inputs.taginput id="my_search" name="tags"></x-inputs.taginput>
+									</div>
+								</form>
+
+							</div>
+						@endauth
 
 						<div class="w-full p-2 wrap">
-							@foreach($wallpaper->tags as $tag)
-								<a href="/tag/{{$tag->slug}}" class="px-3 my-1 float-left py-1 m-1 rounded-full bg-gray-700 hover:text-gray-400">
-									#{{ str_replace('-', ' ', $tag->slug) }}
-								</a>
-							@endforeach
+							@if(count($wallpaper->tags))
+								@foreach($wallpaper->tags as $tag)
+									<a href="/tag/{{$tag->slug}}" class="px-3 my-1 float-left py-1 m-1 rounded-full bg-gray-700 hover:text-gray-400">
+										#{{ str_replace('-', ' ', $tag->slug) }}
+									</a>
+								@endforeach
+							@else
+								@guest
+									<p class="w-full">
+										<a href="/login" class="hover:text-white">Login</a> & Add tags here.
+									</p>
+								@endguest
+							@endif
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+
+	$('#tag-add-form').on('submit',function(event){
+	  event.preventDefault();
+
+	  tag = $('#my_search').val();
+
+	  $.ajax({
+	    url: "/tag/{{$wallpaper->id}}",
+	    type:"POST",
+	    data:{
+	      "_token": "{{ csrf_token() }}",
+	      tags:tag,
+	    },
+	    success:function(response){
+	      console.log(response);
+	    },
+	  });
+	});
+	</script>
 </x-wallpaper-showing-layout>
