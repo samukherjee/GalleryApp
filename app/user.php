@@ -52,7 +52,7 @@ class user extends Authenticatable implements MustVerifyEmail
         if($value){
             return '/storage/avatars/'.$value;
         } else{
-            return '/images/default-avatar.jpeg';
+            return '/images/default-avatar.jpg';
         }
     }
 

@@ -1,15 +1,14 @@
 @extends('layouts.app')
 
 @section('head')
-<link rel="stylesheet" href="{{ url('/css/custom.css') }}">
-<link rel="stylesheet" href="{{ url('/css/gallery.css') }}">
-<link rel="stylesheet" href="{{ url('/css/button.css') }}">
+  <link rel="stylesheet" href="{{ url('/css/gallery.css') }}">
+  <link rel="stylesheet" href="{{ url('/css/button.css') }}">
 @endsection
 
-@section('js')
-    <script src="/js/jquery.js"></script>
-    <script src="/js/dropzone.js"></script>
-    <script src="/js/dropzone-config.js"></script>
+@section('script')
+  <script src="{{ asset('js/jquery.js') }}" defer></script>
+  <script src="{{ asset('js/dropzone.js') }}" defer></script>
+  <script src="{{ asset('js/dropzone-config.js') }}" defer></script>
 @endsection
 
 @section('content')

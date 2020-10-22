@@ -1,20 +1,20 @@
 Dropzone.options.myDropzone = {
     maxFiles:20,
     timeout:120000,
-    autoProcessQueue: false,
+    autoProcessQueue:false,
     uploadMultiple:false,
     parallelUploads:20,
-    maxFilesize: 15,
-    thumbnailWidth: 300,
-    thumbnailHeight: 200,
-    addRemoveLinks: false,
+    maxFilesize:15,
+    thumbnailWidth:300,
+    thumbnailHeight:200,
+    addRemoveLinks:false,
     clickable:".clickable",
-    acceptedFiles: 'image/jpeg, image/png',
-    dictFileTooBig: 'Image is larger than 5MB',
-    dictInvalidFileType: "You can upload images only.",
-    dictMaxFilesExceeded: "You can only add 20 files at once.",
-    previewTemplate: document.querySelector('#preview').innerHTML,
-    headers: { "X-CSRF-TOKEN": document.head.querySelector("[name=csrf-token]").content },
+    acceptedFiles:'image/jpeg, image/png',
+    dictFileTooBig:'Image is larger than 5MB',
+    dictInvalidFileType:"You can upload images only.",
+    dictMaxFilesExceeded:"You can only add 20 files at once.",
+    previewTemplate:document.querySelector('#preview').innerHTML,
+    headers:{ "X-CSRF-TOKEN": document.head.querySelector("[name=csrf-token]").content },
     init: function () {
         var t=this;
         e=$("#upload-start");
@@ -80,7 +80,6 @@ Dropzone.options.myDropzone = {
         });
     }
 }
-
 
 // this.on("removedfile", function (file) {
 //     $.post({

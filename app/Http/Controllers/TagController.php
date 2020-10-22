@@ -31,27 +31,27 @@ class TagController extends Controller
         return view('tags.untag', compact('wallpapers'));
     }
 
-    public function store(Request $request, $wallpaperId)
+    public function store(Request $request, $imageId)
     {
-        // validation for tags
-        request()->validate([
-            'tags' => ['bail','required','string']
+        $image = Wallpaper::findOrFail($imageId);
+
+        $request->validate([
+            'tags' => 'bail|required|string'
         ]);
 
-        $tags = explode(',', $request->tags);
-        $ids = [];
+        $tags = collect([]);
 
-        foreach($tags as $tag) // write logic for "tag should not be null"
-        {
-            $ids[] = Tag::firstOrCreate([
-                'name' => trim($tag),
-                'slug' => \Str::slug(trim($tag)),
+        foreach (explode(',', $request->tags) as $tag) {
+            $tags->push(Tag::firstOrCreate([
+                'name' => $name = trim($tag),
+                'slug' => \Str::slug($name),
                 'username' => auth()->user()->username
-            ])->id;
+            ]));
         }
 
-        $wallpaper = wallpaper::findOrFail($wallpaperId);
-        $wallpaper->tags()->attach($ids);
+        $image->tags()->attach($tags->pluck('id'));
+
+        return $tags;
     }
 
     public function show($slug)
@@ -71,6 +71,15 @@ class TagController extends Controller
     public function update(Request $request, $id)
     {
         //
+    }
+
+    public function tagDetachFromWallpaper(Request $request, $wallpaperId)
+    {
+        $wallpaper = Wallpaper::findOrFail($wallpaperId);
+
+        $wallpaper->tags()->detach($request->id);
+        
+        return response()->json(['success' => 'success']);
     }
 
     public function destroy($id)

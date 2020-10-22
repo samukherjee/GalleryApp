@@ -6,13 +6,12 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/uploadebug', function(){return view('debug');});
 // Route::post('/uploadebug', 'UploadController@store');
 
-Route::get('/', function () {return view('welcome');});
+
 Auth::routes(['verify' => true]);
-Route::get('/home', 'HomeController@index')->name('home');
 
 
-Route::get('/latest', 'WallpaperController@latest');
-Route::get('/random', 'WallpaperController@random');
+Route::get('/latest', 'WallpaperController@latest')->name('latest');
+Route::get('/random', 'WallpaperController@random')->name('random');
 Route::get('/wallpaper/{wallpaper}', 'WallpaperController@show');
 
 
@@ -35,6 +34,7 @@ Route::get('/tags', 'TagController@index');
 Route::get('/untag', 'TagController@create');
 Route::post('/tag/{wallpaperId}', 'TagController@store');
 Route::get('/tag/{tag}', 'TagController@show');
+Route::delete('/tagdetach/{wallpaperId}', 'TagController@tagDetachFromWallpaper');
 // Route::get('/tag/{tag}', 'TagController@show');
 
 

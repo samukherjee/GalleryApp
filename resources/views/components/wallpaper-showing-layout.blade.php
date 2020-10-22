@@ -20,6 +20,12 @@
 .tt-suggestion:hover {
     background-color: #0097cf;
 }
+.tagdeletebutton{
+	display:none;
+}
+.tag:hover > .tagdeletebutton{
+	display:block;
+}
 </style>
 @endsection
 

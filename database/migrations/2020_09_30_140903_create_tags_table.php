@@ -22,6 +22,7 @@ class CreateTagsTable extends Migration
         });
 
         Schema::create('tag_wallpaper', function (Blueprint $table) {
+            $table->primary(['tag_id', 'wallpaper_id']);
             $table->foreignId('tag_id')->constrained()->onDelete('cascade');;
             $table->foreignId('wallpaper_id')->constrained()->onDelete('cascade');;
         });

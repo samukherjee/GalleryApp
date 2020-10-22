@@ -49,9 +49,9 @@
 						Save this wallpaper in your favorites list.
 					</div>
 					<div class="flex items-center justify-center">
-						<button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-6 border-b-4 border-blue-700 hover:border-blue-500 rounded-full">
+						<x-inputs.button>
 							Favorites
-						</button>
+						</x-inputs.button>
 					</div>
 				</div>
 				<div class="w-full py-2 border-t-2 border-gray-700">
@@ -73,12 +73,24 @@
 							</div>
 						@endauth
 
-						<div class="w-full p-2 wrap">
+						<div class="tagList w-full p-2 wrap">
 							@if(count($wallpaper->tags))
 								@foreach($wallpaper->tags as $tag)
-									<a href="/tag/{{$tag->slug}}" class="px-3 my-1 float-left py-1 m-1 rounded-full bg-gray-700 hover:text-gray-400">
-										#{{ str_replace('-', ' ', $tag->slug) }}
-									</a>
+									<div 
+										class="tag relative ml-2 mb-2 text-md inline-flex items-center font-bold leading-sm px-3 py-1 rounded bg-gray-700"
+										>
+										<a href="/tag/{{$tag->slug}}" 
+											class="text-gray-400 hover:text-gray-400"
+										>
+											#{{ str_replace('-', ' ', $tag->slug) }}
+										</a>
+										<button 
+											class="tagdeletebutton absolute right-0 top-0 bottom-0 h-full text-gray-400 font-bold bg-gray-700 py-1 px-1 ml-2"
+											data-id="{{$tag->id}}"
+										>
+											x
+										</button>
+									</div>
 								@endforeach
 							@else
 								@guest
@@ -94,23 +106,52 @@
 		</div>
 	</div>
 	<script type="text/javascript">
+		$('#tag-add-form').on('submit',function(e){
+			e.preventDefault();
 
-	$('#tag-add-form').on('submit',function(event){
-	  event.preventDefault();
+			$.ajaxSetup({headers:{
+			    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+			});
 
-	  tag = $('#my_search').val();
+			var tag = $('#my_search').val();
+			var token = $("meta[name='csrf-token']").attr("content");
 
-	  $.ajax({
-	    url: "/tag/{{$wallpaper->id}}",
-	    type:"POST",
-	    data:{
-	      "_token": "{{ csrf_token() }}",
-	      tags:tag,
-	    },
-	    success:function(response){
-	      console.log(response);
-	    },
-	  });
-	});
+			$.ajax({
+				url: "/tag/{{$wallpaper->id}}",
+				type:"POST",
+				data:{
+					tags:tag,
+				},
+				success:function(response){
+					$('#my_search').val('');
+					$.each(response, function( index, value ) {
+						$(".tagList").append('<div class="tag relative ml-2 mb-2 text-md inline-flex items-center font-bold leading-sm px-2 py-1 rounded bg-gray-700"><a href="/tag/'+value.slug+'" class="text-gray-400 hover:text-gray-400">#'+value.name+'</a><button class="tagdeletebutton absolute right-0 top-0 bottom-0 h-full text-gray-400 font-bold bg-gray-700 py-1 px-1 ml-2" data-id="{{$tag->id}}">x</button></div>');
+					});
+				},
+			});
+		});
+
+		$(document).on('click', '.tagdeletebutton', function(e){
+			e.preventDefault();
+
+			$.ajaxSetup({headers:{
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+			});
+
+			var that = this;
+			var id = $(this).data("id");
+			var token = $("meta[name='csrf-token']").attr("content");
+			
+			$.ajax({
+				url: "/tagdetach/{{$wallpaper->id}}",
+				type:"DELETE",
+				data:{
+					"id":id,
+				},
+				success:function(response){
+					$(that).closest('.tag').hide();
+				},
+			});
+		});
 	</script>
 </x-wallpaper-showing-layout>

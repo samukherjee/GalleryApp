@@ -19,7 +19,7 @@
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
     @yield('head')
 
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <!-- <script src="{{ asset('js/app.js') }}" defer></script> -->
     @yield('js')
 </head>
 <body class="bg-gray-900">
@@ -28,5 +28,7 @@
     @yield('content')
 
     <x-footbar></x-footbar>
+
+    @yield('script')
 </body>
 </html>
