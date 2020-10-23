@@ -8,7 +8,7 @@
 	Placeholder="Tags can be comma seperated... (Eg: Cars,nature,moutains)" 
 	
 	autofocus 
-	
+
 	{{ $attributes }}
 >
 <button 

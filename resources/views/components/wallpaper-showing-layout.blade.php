@@ -36,19 +36,6 @@
 @endsection
 
 @section('js')
-	<script id="result-template" type="text/x-handlebars-template">
-	  <div class="w-full py-1 px-5 cursor-pointer bg-gray-700 hover:bg-blue-500">
-	    @{{name}} 
-	  </div>
-	</script>
-
-	<script id="empty-template" type="text/x-handlebars-template">
-	  <div class="EmptyMessage">Not found.</div>
-	</script>
-
-	<script src="{{ asset('js/handlebars.js') }}"></script>
 	<script src="{{ asset('js/jquery.js') }}"></script>
-	<script src="{{ asset('js/typeahead.js') }}"></script>
-	<script src="{{ asset('js/typeahead-config.js') }}"></script>
 @endsection
 

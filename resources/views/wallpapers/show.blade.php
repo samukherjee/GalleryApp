@@ -61,12 +61,12 @@
 						</div>
 
 						@auth
-							@include('layouts.error', ['data' => 'tags'])
+							<div id="error"></div>
 
 							<div class="flex justify-center">
-								<form class="w-full" id="tag-add-form">
-									<div class="flex items-center border-b-2 border-gray-500 py-2 @error('tags') border-red-500 @enderror">
-										<x-inputs.taginput id="my_search" name="tags"></x-inputs.taginput>
+								<form  class="w-full" id="tag-add-form">
+									<div class="flex items-center border-b-2 border-gray-500 py-2">
+										<x-inputs.taginput name="tags"></x-inputs.taginput>
 									</div>
 								</form>
 
@@ -117,17 +117,25 @@
 			var token = $("meta[name='csrf-token']").attr("content");
 
 			$.ajax({
-				url: "/tag/{{$wallpaper->id}}",
+				url:"/tag/{{$wallpaper->id}}",
 				type:"POST",
+				dataType:"json",
 				data:{
 					tags:tag,
 				},
 				success:function(response){
 					$('#my_search').val('');
 					$.each(response, function( index, value ) {
-						$(".tagList").append('<div class="tag relative ml-2 mb-2 text-md inline-flex items-center font-bold leading-sm px-2 py-1 rounded bg-gray-700"><a href="/tag/'+value.slug+'" class="text-gray-400 hover:text-gray-400">#'+value.name+'</a><button class="tagdeletebutton absolute right-0 top-0 bottom-0 h-full text-gray-400 font-bold bg-gray-700 py-1 px-1 ml-2" data-id="{{$tag->id}}">x</button></div>');
+						$(".tagList").append('<div class="tag relative ml-2 mb-2 text-md inline-flex items-center font-bold leading-sm px-2 py-1 rounded bg-gray-700"><a href="/tag/'+value.slug+'" class="text-gray-400 hover:text-gray-400">#'+value.name+'</a><button class="tagdeletebutton absolute right-0 top-0 bottom-0 h-full text-gray-400 font-bold bg-gray-700 py-1 px-1 ml-2" data-id="'+value.id+'">x</button></div>');
 					});
 				},
+				error:function(xhr, status, errors){
+					console.log(xhr.responseJSON.errors);
+					$.each(xhr.responseJSON.errors, function(key,value){
+						console.log(value);
+						$('#error').append('<p class="errormsg text-xs italic font-semibold text-red-500">'+value+'</p>');
+					});
+				}
 			});
 		});
 
@@ -150,7 +158,13 @@
 				},
 				success:function(response){
 					$(that).closest('.tag').hide();
-				},
+				}
+			});
+		});
+
+		$(document).ready(function(){
+			$('#my_search').on('click',function(){
+				$('.errormsg').hide();
 			});
 		});
 	</script>

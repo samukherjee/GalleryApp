@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-// use \Str;
+use \Str;
+use Illuminate\Validation\Rule;
 use App\Tag;
 use App\Wallpaper;
 use Illuminate\Http\Request;
@@ -34,9 +35,14 @@ class TagController extends Controller
     public function store(Request $request, $imageId)
     {
         $image = Wallpaper::findOrFail($imageId);
-
+        
+        // Saving Tag into the database
         $request->validate([
-            'tags' => 'bail|required|string'
+            'tags'  => [
+                'bail',
+                'required',
+                'string'
+            ]
         ]);
 
         $tags = collect([]);
@@ -44,12 +50,17 @@ class TagController extends Controller
         foreach (explode(',', $request->tags) as $tag) {
             $tags->push(Tag::firstOrCreate([
                 'name' => $name = trim($tag),
-                'slug' => \Str::slug($name),
+                'slug' => Str::slug($name),
                 'username' => auth()->user()->username
             ]));
         }
 
-        $image->tags()->attach($tags->pluck('id'));
+        // Saving tag_id and wallpaper_id pair in tag_wallpaper pivot table
+        $tagIds = $tags->pluck('id');
+        
+        
+
+        $image->tags()->attach($tagIds);
 
         return $tags;
     }
