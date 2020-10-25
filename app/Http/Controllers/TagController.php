@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use \Str;
-use Illuminate\Validation\Rule;
 use App\Tag;
 use App\Wallpaper;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class TagController extends Controller
 {
@@ -38,11 +38,7 @@ class TagController extends Controller
         
         // Saving Tag into the database
         $request->validate([
-            'tags'  => [
-                'bail',
-                'required',
-                'string'
-            ]
+            'tags'  => 'bail|required|string'
         ]);
 
         $tags = collect([]);
@@ -55,12 +51,7 @@ class TagController extends Controller
             ]));
         }
 
-        // Saving tag_id and wallpaper_id pair in tag_wallpaper pivot table
-        $tagIds = $tags->pluck('id');
-        
-        
-
-        $image->tags()->attach($tagIds);
+        $image->tags()->syncWithoutDetaching($tags->pluck('id'));
 
         return $tags;
     }

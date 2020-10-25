@@ -74,4 +74,8 @@ class user extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(wallpaper::class);
     }
+
+    public function favourite_wallpaper(){
+        return $this->belongsToMany(wallpaper::class,'favourite');
+    }
 }
